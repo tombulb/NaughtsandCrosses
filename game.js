@@ -73,9 +73,11 @@ function determineXO() {
     if (turnCounter % 2 === 0) {
         event.target.textContent = 'X';
         event.target.classList.add('clicked-x');
+        showResults.textContent = "It's player ones turn";
         } else {
             event.target.textContent = 'O';
-            event.target.classList.add('clicked-o')
+            event.target.classList.add('clicked-o');
+            showResults.textContent = "It's player twos turn";
         }
 }
 
@@ -85,11 +87,11 @@ function determineWinner(){
     for (var i = 0; i < resultsArray.length; i++) {
         if (resultsArray[i][0].classList.contains('clicked-o') && resultsArray[i][1].classList.contains('clicked-o') && resultsArray[i][2].classList.contains('clicked-o') ){
             turnCounter = 10;
-            showResults.textContent = 'Player1 wins';
+            showResults.textContent = 'Player one wins!';
             playAgain();
         } else if (resultsArray[i][0].classList.contains('clicked-x') && resultsArray[i][1].classList.contains('clicked-x') && resultsArray[i][2].classList.contains('clicked-x')){
             turnCounter = 10;
-            showResults.textContent = ('Player 2 wins')
+            showResults.textContent = ('Player two wins!')
             playAgain();
         } 
     }
@@ -119,7 +121,7 @@ function resetGame() {
         gameSquares[i].classList.remove('clicked-o', 'clicked-x');
         gameSquares[i].textContent = '';
         turnCounter = 0;
-        showResults.textContent = '';
+        showResults.textContent = "It's player ones turn";
         
     }
 }
