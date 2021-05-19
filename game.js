@@ -53,6 +53,11 @@ var resultsArray = [
     ]
 ]
 
+var playAgainBtn = document.createElement('button');
+
+
+
+
 // !GAME FUNCTIONALITY!
 
 // TURNCOUNTER
@@ -79,11 +84,13 @@ function determineXO() {
 function determineWinner(){
     for (var i = 0; i < resultsArray.length; i++) {
         if (resultsArray[i][0].classList.contains('clicked-o') && resultsArray[i][1].classList.contains('clicked-o') && resultsArray[i][2].classList.contains('clicked-o') ){
-            turnCounter = 11;
+            turnCounter = 10;
             showResults.textContent = 'Player1 wins';
+            playAgain();
         } else if (resultsArray[i][0].classList.contains('clicked-x') && resultsArray[i][1].classList.contains('clicked-x') && resultsArray[i][2].classList.contains('clicked-x')){
-            turnCounter = 11;
+            turnCounter = 10;
             showResults.textContent = ('Player 2 wins')
+            playAgain();
         } 
     }
 }
@@ -92,8 +99,31 @@ function determineWinner(){
 function itsADraw(){
     if (turnCounter === 9){
         showResults.textContent = "It's a draw";
+        playAgain();
     }
 }
+
+//creates a button which resets the game on click
+function playAgain(){
+    if (turnCounter === 9 || turnCounter === 10){
+        document.body.appendChild(playAgainBtn);
+        playAgainBtn.innerText = 'Play Again?';
+        playAgainBtn.classList.add('play-again-btn');
+        playAgainBtn.addEventListener('click', resetGame);
+    }
+}
+
+function resetGame() {
+    document.body.removeChild(playAgainBtn);
+    for (var i = 0; i < gameSquares.length; i++){
+        gameSquares[i].classList.remove('clicked-o', 'clicked-x');
+        gameSquares[i].textContent = '';
+        turnCounter = 0;
+        showResults.textContent = '';
+        
+    }
+}
+
 
 // EVALUATES IF THE TURN IS VALID, AND IF SQUARE SHOULD HAVE AN X OR O.
 function turnTaken() {
@@ -102,8 +132,9 @@ function turnTaken() {
             addTurnCounter(); //add one to turnCounter
             determineXO(); // determine if square should have X or O
             determineWinner(); //function runs to check what classes the squares have and will stop the game if it detects a win
-            itsADraw(); // if the previous function doesn't find a winner after 9 turns (turnCounter === 9), displays its a draw
+            itsADraw(); // if the previous function doesn't find a winner, after 9 turns (turnCounter === 9), displays 'its a draw'
         }
+
     }
 }
 
