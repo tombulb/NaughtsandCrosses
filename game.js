@@ -5,65 +5,114 @@
 // DISPLAYS WINNER AND ASKS IF THE USER WOULD LIKE TO PLAY AGAIN
 
 
+//GLOBAL VARIABLES
+var gameSquares = document.querySelectorAll('.game-squares');//represents all 9 squares as a group
+var showResults = document.querySelector('.results-div');//represents where game results will be shown
+var turnCounter = 0;
+// ARRAY OF ARRAYS CONTAIN EACH POSSIBLE WINNING OUTCOME
+var resultsArray = [
+    [
+        document.querySelector('.box1'),
+        document.querySelector('.box2'),
+        document.querySelector('.box3')
+    ],
+    [
+        document.querySelector('.box1'),
+        document.querySelector('.box5'),
+        document.querySelector('.box9')
+    ],
+    [
+        document.querySelector('.box1'),
+        document.querySelector('.box4'),
+        document.querySelector('.box7')
+    ],
+    [
+        document.querySelector('.box2'),
+        document.querySelector('.box5'),
+        document.querySelector('.box8')
+    ],
+    [
+        document.querySelector('.box3'),
+        document.querySelector('.box6'),
+        document.querySelector('.box9')
+    ],
+    [
+        document.querySelector('.box4'),
+        document.querySelector('.box5'),
+        document.querySelector('.box6')
+    ],
+    [
+        document.querySelector('.box7'),
+        document.querySelector('.box5'),
+        document.querySelector('.box3')
+    ],
+    [
+        document.querySelector('.box7'),
+        document.querySelector('.box8'),
+        document.querySelector('.box9')
+    ]
+]
+
 // !GAME FUNCTIONALITY!
 
 // TURNCOUNTER
 // turnCounter = 0; use odd or even formula to determine if, when a square is clicked, it should have an x or o. see lines 20 - 25
 
 // // FUNCTION TO ADD ONE TO TURNCOUNTER() {
-//     TURNCOUNTER = TURNCOUNTER + 1;
-// }
+function addTurnCounter(){
+    turnCounter = turnCounter + 1;
+}
 
+//determine if a clicked square should have an x or o and adds corresponding class to that square
+function determineXO() {
+    if (turnCounter % 2 === 0) {
+        event.target.textContent = 'X';
+        event.target.classList.add('clicked-x');
+        } else {
+            event.target.textContent = 'O';
+            event.target.classList.add('clicked-o')
+        }
+}
 
-// FUNCTION TO DISPLAY X OR O IN SQUARE() {
-// line 20 allows turn to proceed only if the square is empty, preventing a player from changing the other players choice to their own.
-//     IF (TARGET ELEMENT'S TEXT CONTENT IS EMPTY){
-// line 22 allows the turn to proceed only if the turnCounter is less than 9, preventing the game from continuing if all the squares are filled.  
-//         IF (TURN COUNTER IS LESS THAN 9){
-//         -- addTurnCounter function here -- adds one to turnCounter if it it less than 9.                
-// lines 25 - 30 determine if the square should have an x or an o
-//             IF (TURN COUNTER IS ODD) {
-//                 SQUARE CONTENT = X
-//                 SQUARE CLASS = CLICKED BY PLAYER X
-//             } ELSE(SQUARE CONTENT EVEN) {
-//                 SQUARE CONTENT = O;
-//                 SQUARE CLASS = CLICKED BY PLAYER O
-//             }
-//         }
-//     }
-// }
+// CHECKS FOR WINNING SCENARIO ON MOUSECLICK
+//lines 81 and 84 are checking to see if any win scenarios are true
+function determineWinner(){
+    for (var i = 0; i < resultsArray.length; i++) {
+        if (resultsArray[i][0].classList.contains('clicked-o') && resultsArray[i][1].classList.contains('clicked-o') && resultsArray[i][2].classList.contains('clicked-o') ){
+            turnCounter = 11;
+            showResults.textContent = 'Player1 wins';
+        } else if (resultsArray[i][0].classList.contains('clicked-x') && resultsArray[i][1].classList.contains('clicked-x') && resultsArray[i][2].classList.contains('clicked-x')){
+            turnCounter = 11;
+            showResults.textContent = ('Player 2 wins')
+        } 
+    }
+}
 
-// FUNCTION FOR DRAW(){
-//    IF (turnCounter === 9){
-//       html element displays its a draw
-//    }
-// }
+// HANDLES DRAW SCENARIO
+function itsADraw(){
+    if (turnCounter === 9){
+        showResults.textContent = "It's a draw";
+    }
+}
 
-// ARRAY OF ARRAYS TO STORE ALL POSSIBLE WIN SCENARIOS
-// var resultsArray = [[winscenario1], [winscenario2], etc.]
-// WIN SCENARIOS ARE 1,2,3 - 1,5,9 - 1,4,7 - 2,5,8 - 3,6,9 - 4,5,6 - 7,5,3 - 7,8,9
-// EG. IF SQUARES 1,2,3 HAVE THE CLASS 'CLICKED BY PLAYER X', PLAYER X WINS IF SQUARES 4,5,6 HAVE THE CLASS 'CLICKED BY PLAYER O', PLAYER O WINS. IF 9 TURNS TAKEN AND NO WINNER, DISPLAYS DRAW RESULT.
+// EVALUATES IF THE TURN IS VALID, AND IF SQUARE SHOULD HAVE AN X OR O.
+function turnTaken() {
+    if (event.target.textContent === ''){ // if square is empty
+        if (turnCounter <= 9) { //if turnCounter is less than 9
+            addTurnCounter(); //add one to turnCounter
+            determineXO(); // determine if square should have X or O
+            determineWinner(); //function runs to check what classes the squares have and will stop the game if it detects a win
+            itsADraw(); // if the previous function doesn't find a winner after 9 turns (turnCounter === 9), displays its a draw
+        }
+    }
+}
 
-// FUNCTION TO CHECK IF THERE IS A WINNER() {
-//     EVALUATE IF CERTAIN SQUARES HAVE A CLASS TO DETERMINE IF SOMEONE HAS WON
-// for (var i = 0; i < resultsArray.length; i++){ - LOOPS THROUGH EACH ARRAY ELEMENT AT THE FIRST LEVEL,
-// the below lines go through each item within the second level array to check if they have a corresponding player  class. if all 3 within that array have the same player class, that player wins. 
-//     if (array[i][0] contains class 'clicked-o' && array[i][1] contains class 'clicked-o' && array[i][2] contains class 'clicked-o'){
-//          turnCounter = 11; - PREVENTS GAME FROM CONTINUING PAST WIN SCENARIO
-//          html element displays player-o wins
-//     } else if (array[i][0] contains class 'clicked-x' && array[i][1] contains class 'clicked-x' && array[i][2] contains class 'clicked-x')
-//          turnCounter = 11; 
-//          html element displays player-x wins 
-//}
+// HANDLE SQUARE CLICKED EVENT or turn taken
+function handleClick() {
+    turnTaken();  
+}
 
-
-// determine winner function sets turnCounter to 11 if a win scenario happens, preventing the game from continuing.
-
-// FUNCTION handleClick() {
-//     RUN FUNCTION TO DISPLAY X OR O IN SQUARE
-// }
-
-// function to add event listener to all 9 squares
-// for (var i = 0; i < gameSquares.length; i++) {
-//     gamesSquares[i].addEventListener('click', handleclick);
-// }
+//ADDS EVENT LISTENER TO ALL 9 SQUARES
+for ( var i = 0; i < gameSquares.length; i++ ) {
+    gameSquares[i].addEventListener('click', handleClick);
+}
