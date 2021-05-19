@@ -16,12 +16,12 @@
 
 
 // FUNCTION TO DISPLAY X OR O IN SQUARE() {
-// line 15 allows turn to proceed only if the square is empty, preventing a player from changing the other players choice to their own.
+// line 20 allows turn to proceed only if the square is empty, preventing a player from changing the other players choice to their own.
 //     IF (TARGET ELEMENT'S TEXT CONTENT IS EMPTY){
-// line 17 allows the turn to proceed only if the turnCounter is less than 9, preventing the game from continuing if all the squares are filled.  
+// line 22 allows the turn to proceed only if the turnCounter is less than 9, preventing the game from continuing if all the squares are filled.  
 //         IF (TURN COUNTER IS LESS THAN 9){
 //         -- addTurnCounter function here -- adds one to turnCounter if it it less than 9.                
-// lines 19 - 24 determine if the square should have an x or an o
+// lines 25 - 30 determine if the square should have an x or an o
 //             IF (TURN COUNTER IS ODD) {
 //                 SQUARE CONTENT = X
 //                 SQUARE CLASS = CLICKED BY PLAYER X
