@@ -6,52 +6,16 @@
 
 
 //GLOBAL VARIABLES
-var gameSquares = document.querySelectorAll('.game-squares');//represents all 9 squares as a group
+var startVsPlayer = document.querySelector('.vs-player');
+var startVsPc = document.querySelector('.vs-pc');
+// var gameSquares = 'document.querySelectorAll('.game-squares');'
+var gameSquares = null;
+//represents all 9 squares as a group
 var showResults = document.querySelector('.results-div');//represents where game results will be shown
 var turnCounter = 0;
 // ARRAY OF ARRAYS CONTAIN EACH POSSIBLE WINNING OUTCOME
-var resultsArray = [
-    [
-        document.querySelector('.box1'),
-        document.querySelector('.box2'),
-        document.querySelector('.box3')
-    ],
-    [
-        document.querySelector('.box1'),
-        document.querySelector('.box5'),
-        document.querySelector('.box9')
-    ],
-    [
-        document.querySelector('.box1'),
-        document.querySelector('.box4'),
-        document.querySelector('.box7')
-    ],
-    [
-        document.querySelector('.box2'),
-        document.querySelector('.box5'),
-        document.querySelector('.box8')
-    ],
-    [
-        document.querySelector('.box3'),
-        document.querySelector('.box6'),
-        document.querySelector('.box9')
-    ],
-    [
-        document.querySelector('.box4'),
-        document.querySelector('.box5'),
-        document.querySelector('.box6')
-    ],
-    [
-        document.querySelector('.box7'),
-        document.querySelector('.box5'),
-        document.querySelector('.box3')
-    ],
-    [
-        document.querySelector('.box7'),
-        document.querySelector('.box8'),
-        document.querySelector('.box9')
-    ]
-]
+var resultsArray = [];
+
 
 var playAgainBtn = document.createElement('button');
 
@@ -140,12 +104,85 @@ function turnTaken() {
     }
 }
 
+
+
+
+function createGrid() {
+    for (var i = 1; i < 10; i++) {
+        var createGrid = document.createElement('div');
+        document.querySelector('.div-wrapper').appendChild(createGrid);
+        createGrid.setAttribute('class', 'game-squares box' + i);
+        var createdSquare = document.querySelector('.box' + i)
+        createdSquare.addEventListener('click', handleClick);
+        gameSquares = document.querySelectorAll('.game-squares');
+    }
+}
+
+function generateWinScenarios(){
+    resultsArray = 
+    [
+        [
+            document.querySelector('.box1'),
+            document.querySelector('.box2'),
+            document.querySelector('.box3')
+        ],
+        [
+            document.querySelector('.box1'),
+            document.querySelector('.box5'),
+            document.querySelector('.box9')
+        ],
+        [
+            document.querySelector('.box1'),
+            document.querySelector('.box4'),
+            document.querySelector('.box7')
+        ],
+        [
+            document.querySelector('.box2'),
+            document.querySelector('.box5'),
+            document.querySelector('.box8')
+        ],
+        [
+            document.querySelector('.box3'),
+            document.querySelector('.box6'),
+            document.querySelector('.box9')
+        ],
+        [
+            document.querySelector('.box4'),
+            document.querySelector('.box5'),
+            document.querySelector('.box6')
+        ],
+        [
+            document.querySelector('.box7'),
+            document.querySelector('.box5'),
+            document.querySelector('.box3')
+        ],
+        [
+            document.querySelector('.box7'),
+            document.querySelector('.box8'),
+            document.querySelector('.box9')
+        ]
+    ];
+}
+
+function startPlayerGame(){
+    document.querySelector('.vs-player').style.display = 'none';
+    document.querySelector('.vs-pc').style.display = 'none';
+    showResults.textContent = "It's player ones turn";
+    createGrid();
+    generateWinScenarios();    
+}
+
+
+
+    //ADDS EVENT LISTENER TO ALL 9 SQUARES
+    // for ( var i = 0; i < gameSquares.length; i++ ) {
+        // gameSquares[i].addEventListener('click', handleClick);
+// }
+
 // HANDLE SQUARE CLICKED EVENT or turn taken
 function handleClick() {
     turnTaken();  
 }
 
-//ADDS EVENT LISTENER TO ALL 9 SQUARES
-for ( var i = 0; i < gameSquares.length; i++ ) {
-    gameSquares[i].addEventListener('click', handleClick);
-}
+startVsPlayer.addEventListener('click', startPlayerGame);
+
