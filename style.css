@@ -1,0 +1,23 @@
+.game-squares {
+    border: 1px solid black;
+}
+
+body {
+    width: 100%;
+}
+
+.div-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px 100px;
+    width: 40%; 
+    margin: 0 auto;
+}
+
+.game-squares {
+    text-align: center;
+}
+
+.results-div {
+    text-align: center;
+}
