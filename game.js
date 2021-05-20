@@ -15,6 +15,48 @@ var winCounter1 = document.querySelector('.win-counter1');
 var winCounter2 = document.querySelector('.win-counter2');
 
 
+// SOUNDS
+var muteBtn = document.querySelector('.mute-btn');
+var mute = 0;
+var introRiff = document.querySelector('.intro-riff');
+var gameStartFill = document.querySelector('.game-start-fill')
+var randomSounds = [
+    document.querySelector('.random1'),
+    document.querySelector('.random2'),
+    document.querySelector('.random3'),
+    document.querySelector('.random4'),
+    document.querySelector('.random5'),
+    document.querySelector('.random6'),
+]
+var drawFill = document.querySelector('.draw');
+
+muteBtn.addEventListener('click', playMenuRiff);
+playerOneIsX.addEventListener('click', playGameStartFill);
+playerOneIsO.addEventListener('click', playGameStartFill);
+
+function playMenuRiff() {
+    if (mute === 0){
+        introRiff.play();
+        mute++
+    } else {
+        introRiff.pause();
+        mute--;
+    }
+}
+
+function playGameStartFill(){
+    gameStartFill.play();
+}
+
+function playRandomSound() {
+    var i = Math.floor(Math.random() * randomSounds.length);
+    randomSounds[i].play();
+}
+
+function playDrawFill() {
+    drawFill.play();
+}
+
 var newGame = true;
 var player1 = '';
 var player2 = '';
@@ -29,7 +71,7 @@ var resultsArray = [];
 var upDown = '';
 var headingInterval = null;
 
-function myMove() {
+function pageOpens() {
     var heading = document.querySelector('.heading');
     var pos = 0;
     clearInterval(headingInterval);
@@ -61,6 +103,7 @@ function addTurnCounter(){
 //determine if a clicked square should have an x or o and adds corresponding class to that square
 function determineXO() {
     addTurnCounter();
+    playRandomSound();
     if (turnCounter % 2 === 0){
         event.target.innerHTML = '<img class="slide-in-bck-center token" src="resources/x-token-small.jpg" alt="X"></img>';
         event.target.classList.add('clicked-x');
@@ -103,6 +146,7 @@ function determineWinner(){
 // HANDLES DRAW SCENARIO
 function determineDraw(){
     if (turnCounter === drawCounter){
+        playDrawFill()
         whosTurn.textContent = "It's a draw";
     }
 }
@@ -256,4 +300,4 @@ function handleClick() {
 
 playerOneIsX.addEventListener('click', startPlayerX);
 playerOneIsO.addEventListener('click', startPlayerO);
-myMove();
+pageOpens();
