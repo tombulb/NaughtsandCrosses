@@ -19,7 +19,8 @@ var winCounter2 = document.querySelector('.win-counter2');
 var muteBtn = document.querySelector('.mute-btn');
 var mute = 0;
 var introRiff = document.querySelector('.intro-riff');
-var gameStartFill = document.querySelector('.game-start-fill')
+var gameStartXFill = document.querySelector('.game-start-x-fill');
+var gameStartOFill = document.querySelector('.game-start-o-fill');
 var randomSounds = [
     document.querySelector('.random1'),
     document.querySelector('.random2'),
@@ -29,10 +30,13 @@ var randomSounds = [
     document.querySelector('.random6'),
 ]
 var drawFill = document.querySelector('.draw');
+var player1WinsFill = document.querySelector('.player-1-wins');
+var player2WinsFill = document.querySelector('.player-2-wins');
+var playAgainFill = document.querySelector('.play-again-fill');
 
 muteBtn.addEventListener('click', playMenuRiff);
-playerOneIsX.addEventListener('click', playGameStartFill);
-playerOneIsO.addEventListener('click', playGameStartFill);
+playerOneIsX.addEventListener('click', playStartXFill);
+playerOneIsO.addEventListener('click', playStartOFill);
 
 function playMenuRiff() {
     if (mute === 0){
@@ -44,8 +48,12 @@ function playMenuRiff() {
     }
 }
 
-function playGameStartFill(){
-    gameStartFill.play();
+function playStartXFill(){
+    gameStartXFill.play();
+}
+
+function playStartOFill(){
+    gameStartOFill.play();
 }
 
 function playRandomSound() {
@@ -55,6 +63,18 @@ function playRandomSound() {
 
 function playDrawFill() {
     drawFill.play();
+}
+
+function oWinsFill(){
+    player1WinsFill.play();
+}
+
+function xWinsFill(){
+    player2WinsFill.play();
+}
+
+function playAgainfill(){
+    playAgainFill.play();
 }
 
 var newGame = true;
@@ -119,6 +139,7 @@ function determineXO() {
 function determineWinner(){
     for (var i = 0; i < resultsArray.length; i++) {
         if (resultsArray[i][0].classList.contains('clicked-o') && resultsArray[i][1].classList.contains('clicked-o') && resultsArray[i][2].classList.contains('clicked-o') ){
+            oWinsFill();
             turnCounter = 11;
             if (player1 === 'Player 1') {
                 player2Wins = player2Wins + 1;
@@ -131,6 +152,7 @@ function determineWinner(){
             whosTurn.textContent = `${player2} wins!`;
         } else if (resultsArray[i][0].classList.contains('clicked-x') && resultsArray[i][1].classList.contains('clicked-x') && resultsArray[i][2].classList.contains('clicked-x')){
             turnCounter = 11;
+            xWinsFill();
             if (player1 === 'Player 1') {
                 player1Wins = player1Wins + 1;
                 winCounter1.textContent = `Player 1 wins: ${player1Wins}`;
@@ -160,6 +182,7 @@ function createPlayAgainMainMenuBtns(){
 
 // resets game elements to default for a new game
 function resetGame() {
+    playAgainfill();
     for (var i = 0; i < gameSquares.length; i++){
         gameSquares[i].classList.remove('clicked-o', 'clicked-x');
         gameSquares[i].textContent = '';
@@ -278,6 +301,8 @@ function generateWinScenarios(){
 
 // hides start menu buttons and initiates creation of grid and win scenarios.
 function startPlayerX(){
+    introRiff.pause();
+    mute--;
     createGameBoard();
     generateWinScenarios();
     turnCounter = 1;
@@ -287,6 +312,8 @@ function startPlayerX(){
 }
 
 function startPlayerO(){
+    introRiff.pause();
+    mute--;
     createGameBoard();
     generateWinScenarios();
     player1 = 'Player 2';
