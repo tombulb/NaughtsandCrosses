@@ -30,11 +30,11 @@ function addTurnCounter(){
 //determine if a clicked square should have an x or o and adds corresponding class to that square
 function determineXO() {
     if (turnCounter % 2 === 0) {
-        event.target.innerHTML = '<img class="token" src="x-token-small.jpg" alt="X"></img>';
+        event.target.innerHTML = '<img class="token" src="resources/x-token-small.jpg" alt="X"></img>';
         event.target.classList.add('clicked-x');
         whosTurn.textContent = `It's ${player2}s turn`;
         } else {
-            event.target.innerHTML = '<img class="token" src="o-token-small.jpg" alt="X"></img>';
+            event.target.innerHTML = '<img class="token" src="resources/o-token-small.jpg" alt="X"></img>';
             event.target.classList.add('clicked-o');
             whosTurn.textContent = `It's ${player1}s turn`;
         }
