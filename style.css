@@ -1,27 +1,82 @@
-body {
-    width: 100%; 
-}
-
-.game-squares {
-    border: 1px solid black;
+@font-face {
+    font-family: DejaVuSans;
+    src: url(dejavu-fonts-ttf-2.37/ttf/DejaVuSans.ttf);
 }
 
 body {
     width: 100%;
+    height: 100%;
+    background-color: rgb(26, 25, 25);
+    background-image: url(background.png);
+    background-size: 1000px;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    font-family: DejaVuSans;
+}
+
+.heading {
+    color: orange;
+    text-align: center;
+    size: 100px;
+    margin: 0px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 160px;
+}
+
+/* .game-squares {
+    border: 1px solid black;
+} */
+
+.grid1 {
+    margin: 0 auto;
+    margin-top: 230px;
+    text-align: center;
+}
+
+.token-wrapper {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .div-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 100px 100px 100px;
-    width: 40%; 
+    grid-template-rows: 135px 135px 135px;
+    width: 450px;
     margin: 0 auto;
+    margin-top: 200px;
+    gap: 5px; 
 }
 
 .game-squares {
-    text-align: center;
+    background-color: black;
+    color: white;
 }
 
-.results-div {
+.token {
+    margin: 0 auto;
+}
+
+.messages-div {
+    display: grid;
+    justify-content: center;
+
+}
+
+.your-turn {
+    background-color: black;
+    color: white;
+    width: 270px;
+    margin: 20px;
     text-align: center;
+    font-weight: normal;
+    font-size: 25px;;
+}
+
+.display-none {
+    display: none;
 }

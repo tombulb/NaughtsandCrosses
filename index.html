@@ -9,15 +9,30 @@
 </head>
 
 <body>  
-    <h1>Naughts and Crosses</h1>
+    <h1 class="heading">Naughts and Crosses</h1>
 
-    <button class="vs-player">Play against a human?</button>
-    <button class="vs-pc">Play against a Computer?</button>
+    
 
-    <div class="div-wrapper"></div>
+    <div class="grid1">
+        <section class="main-menu-wrapper">
+            <h2>Welcome to Naughts and Crosses</h2>
+            <h3>PLAYER 1, CHOOSE YOUR TOKEN</h3>
+            <div class = "token-wrapper">
+                <span class='player-is-x'><img src="x-token.jpg" alt="X"></span>
+                <span class="player-is-o"><img src="o-token.jpg" alt="O"></span>
+            </div>     
+        </section>
+    </div>
      
-    <div class="results-div"></div>
 
+    <div class="messages-div display-none">
+        <h4 class="your-turn display-none">It's Player 1s turn</h4>
+    </div>
+
+    <div class="btn-container display-none">
+        <img class="main-menu-btn" src="main-menu-btn.jpg" alt="">
+        <img class="play-again-btn" src="play-again-btn.jpg" alt="">
+    </div>   
 
     <script src="game.js"></script>
 </body>
