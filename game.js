@@ -10,14 +10,45 @@ var mainMenu = document.querySelector('.main-menu-wrapper');
 var playAgainBtn = document.querySelector('.play-again-btn');
 var mainMenuBtn = document.querySelector('.main-menu-btn');
 var whosTurn = document.querySelector('.your-turn');
+var headingContainer = document.querySelector('.heading-container');
+var winCounter1 = document.querySelector('.win-counter1');
+var winCounter2 = document.querySelector('.win-counter2');
+
+
+var newGame = true;
 var player1 = '';
 var player2 = '';
+var player1Wins = 0;
+var player2Wins = 0;
 var gameSquares = null;
 var turnCounter = 0;
 var drawCounter = 9;
 var resultsArray = [];
 
 
+var upDown = '';
+var headingInterval = null;
+
+function myMove() {
+    var heading = document.querySelector('.heading');
+    var pos = 0;
+    clearInterval(headingInterval);
+    headingInterval = setInterval(frame, 10);
+    function frame() {
+        if (pos / 200 % 2 === 1){
+            upDown = 1;
+        } else if (pos / 200 % 2 === 0){
+            upDown = 0;    
+        }
+        if ( upDown === 1 ) {
+            heading.style.top = pos + 'px';
+            pos--;
+        } else if (upDown === 0) {
+            heading.style.top = pos + 'px';
+            pos++; 
+        }
+    }
+}    
 
 
 
@@ -29,14 +60,15 @@ function addTurnCounter(){
 
 //determine if a clicked square should have an x or o and adds corresponding class to that square
 function determineXO() {
-    if (turnCounter % 2 === 0) {
-        event.target.innerHTML = '<img class="token" src="resources/x-token-small.jpg" alt="X"></img>';
+    addTurnCounter();
+    if (turnCounter % 2 === 0){
+        event.target.innerHTML = '<img class="slide-in-bck-center token" src="resources/x-token-small.jpg" alt="X"></img>';
         event.target.classList.add('clicked-x');
         whosTurn.textContent = `It's ${player2}s turn`;
-        } else {
-            event.target.innerHTML = '<img class="token" src="resources/o-token-small.jpg" alt="X"></img>';
-            event.target.classList.add('clicked-o');
-            whosTurn.textContent = `It's ${player1}s turn`;
+    } else {
+        event.target.innerHTML = '<img class="slide-in-bck-center token" src="resources/o-token-small.jpg" alt="X"></img>';
+        event.target.classList.add('clicked-o');
+        whosTurn.textContent = `It's ${player1}s turn`;
         }
 }
 
@@ -45,9 +77,24 @@ function determineWinner(){
     for (var i = 0; i < resultsArray.length; i++) {
         if (resultsArray[i][0].classList.contains('clicked-o') && resultsArray[i][1].classList.contains('clicked-o') && resultsArray[i][2].classList.contains('clicked-o') ){
             turnCounter = 11;
+            if (player1 === 'Player 1') {
+                player2Wins = player2Wins + 1;
+                winCounter2.textContent = `Player 2 wins: ${player2Wins}`;
+            } else {
+                player1Wins = player1Wins + 1;
+                winCounter1.textContent = `Player 1 wins: ${player1Wins}`;    
+            }
+            
             whosTurn.textContent = `${player2} wins!`;
         } else if (resultsArray[i][0].classList.contains('clicked-x') && resultsArray[i][1].classList.contains('clicked-x') && resultsArray[i][2].classList.contains('clicked-x')){
             turnCounter = 11;
+            if (player1 === 'Player 1') {
+                player1Wins = player1Wins + 1;
+                winCounter1.textContent = `Player 1 wins: ${player1Wins}`;
+            } else {
+                player2Wins = player2Wins + 1;
+                winCounter2.textContent = `Player 2 wins: ${player2Wins}`;    
+            }
             whosTurn.textContent = (`${player1} wins!`)
         } 
     }
@@ -88,15 +135,18 @@ function quitGame() {
     whosTurn.classList.toggle('display-none');
     mainMenu.classList.toggle('display-none');
     btnContainer.classList.toggle('display-none');
+    headingContainer.classList.toggle('display-none');
     whosTurn.textContent = "It's Player 1s turn";
+    upDown = 0;
     turnCounter = 0;
+    drawCounter= 9;
 }
 
 // EVALUATES IF THE TURN IS VALID, AND IF SQUARE SHOULD HAVE AN X OR O.
 function turnTaken() {
-    if (event.target.textContent === ''){ 
+    if (event.target.classList.contains('token')){
+    } else { 
         if (turnCounter <= 9) { 
-            addTurnCounter();
             determineXO();
             determineWinner();
             determineDraw();
@@ -110,12 +160,18 @@ function createGameBoard() {
     createPlayAgainMainMenuBtns();
     showResults.classList.toggle('display-none');
     whosTurn.classList.toggle('display-none');
-    mainMenu.classList.toggle('display-none'); 
+    mainMenu.classList.toggle('display-none');
+    headingContainer.classList.toggle('display-none');
     grid1.classList.toggle('div-wrapper');
+    upDown = 3;
+    player1Wins = 0;
+    player2Wins = 0;
+    winCounter1.textContent = 'Player 1 wins: 0';
+    winCounter2.textContent = 'Player 2 wins: 0';
     for (var i = 1; i < 10; i++) {
         var createGrid = document.createElement('div');
         grid1.appendChild(createGrid);
-        createGrid.setAttribute('class', 'game-squares box' + i);
+        createGrid.setAttribute('class', 'slide-in-bck-center game-squares box' + i);
         var createdSquare = document.querySelector('.box' + i)
         createdSquare.addEventListener('click', handleClick);
         gameSquares = document.querySelectorAll('.game-squares');
@@ -200,3 +256,4 @@ function handleClick() {
 
 playerOneIsX.addEventListener('click', startPlayerX);
 playerOneIsO.addEventListener('click', startPlayerO);
+myMove();
