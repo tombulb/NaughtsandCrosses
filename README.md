@@ -13,6 +13,8 @@ Unsolved Issues
 
 1. Sometimes when a square is clicked no sound plays.
 
+2. main menu music file is a bit too big and can be a little slow to start playing as a result.
+
 main menu music 
 
 song title: Absolomb
