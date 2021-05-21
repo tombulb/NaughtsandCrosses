@@ -33,6 +33,7 @@ var drawFill = document.querySelector('.draw');
 var player1WinsFill = document.querySelector('.player-1-wins');
 var player2WinsFill = document.querySelector('.player-2-wins');
 var playAgainFill = document.querySelector('.play-again-fill');
+var menuFill = document.querySelector('.main-menu-fill')
 
 muteBtn.addEventListener('click', playMenuRiff);
 playerOneIsX.addEventListener('click', playStartXFill);
@@ -75,6 +76,10 @@ function xWinsFill(){
 
 function playAgainfill(){
     playAgainFill.play();
+}
+
+function playMenuFill() {
+    menuFill.play();
 }
 
 var newGame = true;
@@ -196,6 +201,7 @@ function resetGame() {
 }
 
 function quitGame() {
+    playMenuFill();
     destroyGrid();
     grid1.classList.toggle('div-wrapper');
     showResults.classList.toggle('display-none');
