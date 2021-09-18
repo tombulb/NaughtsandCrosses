@@ -16,7 +16,6 @@ var winCounter2 = document.querySelector('.win-counter2');
 
 
 // SOUNDS
-var introRiff = document.querySelector('.intro-riff');
 var gameStartXFill = document.querySelector('.game-start-x-fill');
 var gameStartOFill = document.querySelector('.game-start-o-fill');
 var randomSounds = [
@@ -33,7 +32,7 @@ var player2WinsFill = document.querySelector('.player-2-wins');
 var playAgainFill = document.querySelector('.play-again-fill');
 var menuFill = document.querySelector('.main-menu-fill')
 
-muteBtn.addEventListener('click', playMenuRiff);
+
 playerOneIsX.addEventListener('click', playStartXFill);
 playerOneIsO.addEventListener('click', playStartOFill);
 
