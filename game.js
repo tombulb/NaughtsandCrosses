@@ -295,7 +295,6 @@ function generateWinScenarios(){
 
 // hides start menu buttons and initiates creation of grid and win scenarios.
 function startPlayerX(){
-    mute--;
     createGameBoard();
     generateWinScenarios();
     turnCounter = 1;
@@ -305,7 +304,6 @@ function startPlayerX(){
 }
 
 function startPlayerO(){
-    mute--;
     createGameBoard();
     generateWinScenarios();
     player1 = 'Player 2';
