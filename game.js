@@ -295,7 +295,6 @@ function generateWinScenarios(){
 
 // hides start menu buttons and initiates creation of grid and win scenarios.
 function startPlayerX(){
-    introRiff.pause();
     mute--;
     createGameBoard();
     generateWinScenarios();
@@ -306,7 +305,6 @@ function startPlayerX(){
 }
 
 function startPlayerO(){
-    introRiff.pause();
     mute--;
     createGameBoard();
     generateWinScenarios();
