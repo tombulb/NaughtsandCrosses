@@ -16,8 +16,6 @@ var winCounter2 = document.querySelector('.win-counter2');
 
 
 // SOUNDS
-var muteBtn = document.querySelector('.mute-btn');
-var mute = 0;
 var introRiff = document.querySelector('.intro-riff');
 var gameStartXFill = document.querySelector('.game-start-x-fill');
 var gameStartOFill = document.querySelector('.game-start-o-fill');
@@ -39,15 +37,6 @@ muteBtn.addEventListener('click', playMenuRiff);
 playerOneIsX.addEventListener('click', playStartXFill);
 playerOneIsO.addEventListener('click', playStartOFill);
 
-function playMenuRiff() {
-    if (mute === 0){
-        introRiff.play();
-        mute++
-    } else {
-        introRiff.pause();
-        mute--;
-    }
-}
 
 function playStartXFill(){
     gameStartXFill.play();
